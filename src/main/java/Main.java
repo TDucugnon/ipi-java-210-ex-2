@@ -22,18 +22,48 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             nomPersonnage = scanner.next();
             ptsDeVie = MAX_PTS_VIE;
-            ptsBouclier = PTS_BOUCLIER;
+            ptsBouclier = bouclierActif ? ptsBouclier : 0;
             System.out.println("OK " + Util.color(nomPersonnage, Color.GREEN) + " ! C'est parti !");
         }
 
         static boolean hasard(double pourcentage) {
-            return pourcentage < Math.random();
+            return  Math.random() > pourcentage;
         }
-        static nombreAuHasard(short nb) {
-            Math.random(0, nb)
+        static short nombreAuHasard(short nb) {
+            return (short) Math.round(Math.random() * nb);
+        }
+        static short attaqueJoueur(short nbEnnemiPointVie) {
+            short degat = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
+            System.out.println(Util.color(nomPersonnage, Color.GREEN) + "attaque"
+            + Util.color("l'ennemi !", Color.YELLOW) + "il lui fait perdre" + Util.color(ptsDeVie, Color.PURPLE)
+            + "points de dommages");
+            nbEnnemiPointVie -= degat;
+            return nbEnnemiPointVie;
+        }
+        static void afficherPersonnage() {
+            System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED));
+                if (bouclierActif) {
+                    System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
+                }
+            System.out.print(")");
+        }
+        static short attaqueEnnemi() {
+            short degatEnnemi =  nombreAuHasard(MAX_ATTAQUE_ENNEMI);
+            System.out.print("L'" + Util.color("ennemie", Color.YELLOW) + "attaque"
+            + Util.color(nomPersonnage, Color.GREEN) + "!" + "il lui fait" + degatEnnemi + "points de dommages !");
+
+            if (ptsBouclier > 0) {
+                short degatrecu -= ptsBouclier
+
+            }
+
+
+
         }
 
-    }
+
+
+}
 
 
     /**

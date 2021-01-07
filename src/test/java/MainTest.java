@@ -74,28 +74,6 @@ public class MainTest {
     @Test
     public void exo06() throws Exception {
         TestUtils.checkStaticMethod("Main", "attaqueJoueur", "short", short.class);
-        /*
-        Main.nomPersonnage = "test";
-        ByteArrayOutputStream outContent;
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        try (MockedStatic<Main> mockedStatic = Mockito.mockStatic(Main.class)) {
-
-            mockedStatic
-                    .when(() -> Main.nombreAuHasard((short) 5))
-                    .thenReturn((short) 3);
-            mockedStatic.when(() -> Main.attaqueJoueur((short) 10))
-                    .thenCallRealMethod();
-
-            short result = Main.attaqueJoueur((short) 10);
-
-            Assertions.assertThat(result).isEqualTo((short) 7);
-
-            Assertions.assertThat(outContent.toString()).isEqualToIgnoringNewLines(
-                    "" + Util.color("test", Color.GREEN) + " attaque l'" + Util.color("ennemi", Color.YELLOW)
-                            + " ! Il lui fait perdre " + Util.color("3", Color.PURPLE) + " points de dommages");
-        }
-        */
 
     }
 
