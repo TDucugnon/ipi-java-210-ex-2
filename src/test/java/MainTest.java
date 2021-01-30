@@ -75,6 +75,28 @@ public class MainTest {
     public void exo06() throws Exception {
         TestUtils.checkStaticMethod("Main", "attaqueJoueur", "short", short.class);
 
+        Main.nomPersonnage = "test";
+        ByteArrayOutputStream outContent;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        try (MockedStatic<Main> mockedStatic = Mockito.mockStatic(Main.class)) {
+
+            mockedStatic
+                    .when(() -> Main.nombreAuHasard((short) 5))
+                    .thenReturn((short) 3);
+            mockedStatic.when(() -> Main.attaqueJoueur((short) 10))
+                    .thenCallRealMethod();
+
+            short result = Main.attaqueJoueur((short) 10);
+
+            Assertions.assertThat(result).isEqualTo((short) 7);
+
+            Assertions.assertThat(outContent.toString()).isEqualToIgnoringNewLines(
+                    "" + Util.color("test", Color.GREEN) + " attaque l'" + Util.color("ennemi", Color.YELLOW)
+                            + " ! Il lui fait perdre " + Util.color("3", Color.PURPLE) + " points de dommages");
+        }
+
+
     }
 
     @Test
@@ -109,7 +131,7 @@ public class MainTest {
         Class.forName("Main").getDeclaredField("ptsBouclier").set(null, (short) 25);
         Class.forName("Main").getDeclaredField("nomPersonnage").set(null, "John");
 
-        /*ByteArrayOutputStream outContent;
+        ByteArrayOutputStream outContent;
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
@@ -147,7 +169,7 @@ public class MainTest {
                     "L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color("John", Color.GREEN) +
                             " ! Il lui fait 4 points de dommages ! " +
                             Util.color("John", Color.GREEN) + " perd " + Util.color("4", Color.RED) + " points de vie !");
-        }*/
+        }
     }
 
     @Test

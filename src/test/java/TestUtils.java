@@ -185,6 +185,7 @@ public class TestUtils {
     private static void checkFinalMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
         Method method = null;
         try {
+
             method = classe.getDeclaredMethod(nomMethode, parameters);
             Assertions.assertThat(method.getReturnType()).as("La méthode " + nomMethode + " doit retourner le bon type").isEqualTo(returnType);
         } catch (NoSuchMethodException exception) {
